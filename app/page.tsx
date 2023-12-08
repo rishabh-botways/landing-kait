@@ -32,7 +32,7 @@ export default function Home() {
           ></img>
           <h1 className="text-center tagline">A NEW TYPE OF EMPLOYEE.</h1>
         </div>
-        <div className="mt-10 flex justify-center text-[28px] w-[1400px] m-auto text-center">
+        <div className="mt-10 flex justify-center text-[28px] w-max-[1400px] m-auto text-center">
           We are currently revitalizing Kait with exciting new features, awesome
           additions, and plenty of bells and whistles. Get ready for a whole new
           experience &hyphen; big things coming soon!

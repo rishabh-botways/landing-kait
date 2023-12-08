@@ -9,17 +9,21 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@bladeski/countdown-timer": "^2.3.2",
+    "@types/countdown": "^0.0.12",
+    "countdown": "^2.6.0",
+    "next": "14.0.4",
     "react": "^18",
-    "react-dom": "^18",
-    "next": "14.0.4"
+    "react-countdown": "^2.3.5",
+    "react-dom": "^18"
   },
   "devDependencies": {
-    "typescript": "^5",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "autoprefixer": "^10.0.1",
     "postcss": "^8",
-    "tailwindcss": "^3.3.0"
+    "tailwindcss": "^3.3.0",
+    "typescript": "^5"
   }
 }

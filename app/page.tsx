@@ -1,113 +1,202 @@
-import Image from 'next/image'
+"use client";
+
+import { useEffect } from "react";
 
 export default function Home() {
+  // Select HTML elements by their IDs and assign them to variables
+  const day = document.getElementById("days");
+  const hour = document.getElementById("hours");
+  const min = document.getElementById("minutes");
+  const sec = document.getElementById("seconds");
+
+  // Select elements for flipping sheets and assign them to variables
+  const dayFlip = document.getElementById("flip-sheet-day");
+  const hourFlip = document.getElementById("flip-sheet-hour");
+  const minFlip = document.getElementById("flip-sheet-min");
+  const secFlip = document.getElementById("flip-sheet-sec");
+
+  // Initialize countdown values
+  let days = 48;
+  let hours = 23;
+  let minutes = 59;
+  let seconds = 59;
+
+  useEffect(() => {
+    const timer = () => {
+      dayValue();
+      hourValue();
+      minValue();
+      secValue();
+
+      seconds--;
+
+      if (seconds < 0 && minutes > 0) {
+        seconds = 59;
+        minutes--;
+        flip_anime(minFlip);
+      }
+
+      if (minutes <= 0 && hours > 0) {
+        minutes = 59;
+        hours--;
+        flip_anime(hourFlip);
+      }
+
+      if (hours <= 0 && days > 0) {
+        hours = 23;
+        days--;
+        flip_anime(dayFlip);
+      }
+
+      if (seconds < 0 && hours == 0 && minutes == 0 && days == 0) {
+        clearInterval(stopTimer);
+        clearInterval(stopAnime);
+      }
+    };
+    const dayValue = () => {
+      if (day) {
+        if (days < 10) {
+          day.innerText = `0${days}`;
+        } else {
+          day.innerText = `${days}`;
+        }
+      }
+    };
+    const hourValue = () => {
+      if (hour) {
+        if (hours < 10) {
+          hour.innerText = `0${hours}`;
+        } else {
+          hour.innerText = `${hours}`;
+        }
+      }
+    };
+    const minValue = () => {
+      if (min) {
+        if (minutes < 10) {
+          min.innerText = `0${minutes}`;
+        } else {
+          min.innerText = `${minutes}`;
+        }
+      }
+    };
+    const secValue = () => {
+      if (sec) {
+        if (seconds < 10) {
+          sec.innerText = `0${seconds}`;
+        } else {
+          sec.innerText = `${seconds}`;
+        }
+      }
+    };
+    const flip_anime_sec = () => {
+      if (secFlip) secFlip.classList.toggle("flip");
+    };
+    const flip_anime = (obj: any) => {
+      obj.classList.add("flip");
+
+      setTimeout(() => {
+        obj.classList.remove("flip");
+      }, 1000);
+    };
+
+    timer();
+    const stopAnime = setInterval(flip_anime_sec, 1000);
+    const stopTimer = setInterval(timer, 1000);
+    // return () => {
+    //   clearInterval(stopAnime);
+    //   clearInterval(stopTimer);
+    // };
+  }, []);
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <main className="w-full h-full">
+      <div className="brand netra">
+        <div>
+          <img
+            src="netraEye.png"
+            className="brand-image"
+            alt="Netra AI"
+            width="75px"
+          ></img>
         </div>
+        <div className="brand-text">NETRA AI</div>
       </div>
+      <video
+        src="bgVideo.mp4"
+        muted
+        loop
+        playsInline
+        autoPlay
+        className="video-bg"
+        poster="bgblack.svg"
+      />
+      <div className="Main flex flex-col content-center justify-center">
+        <div className="flex flex-col content-center justify-center flex-wrap">
+          <img
+            src="kaitHome.png"
+            className="select-none kait-home "
+            alt="Kait AI"
+          ></img>
+          <h1 className="text-center tagline">A NEW TYPE OF EMPLOYEE.</h1>
+        </div>
+        <div className="mt-10 flex justify-center text-[28px] w-[1400px] m-auto text-center">
+          We are currently revitalizing Kait with exciting new features, awesome
+          additions, and plenty of bells and whistles. Get ready for a whole new
+          experience – big things coming soon!
+        </div>
 
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px] z-[-1]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
+        <section className="countdown-timer mt-10">
+          <div className="countdown-info">
+            <div className="timer-box">
+              <div id="flip-sheet-day" className="sheet"></div>
+              <div className="circle-left"></div>
+              <p id="days" className="primary">
+                00
+              </p>
+              <div className="circle-right"></div>
+            </div>
 
-      <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
+            <p className="sub-heading">DAYS</p>
+          </div>
 
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
+          <div className="countdown-info">
+            <div className="timer-box">
+              <div id="flip-sheet-hour" className="sheet"></div>
+              <div className="circle-left"></div>
+              <p id="hours" className="primary">
+                00
+              </p>
+              <div className="circle-right"></div>
+            </div>
+            <p className="sub-heading">HOURS</p>
+          </div>
 
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore starter templates for Next.js.
-          </p>
-        </a>
+          <div className="countdown-info">
+            <div className="timer-box">
+              <div id="flip-sheet-min" className="sheet"></div>
+              <div className="circle-left"></div>
+              <p id="minutes" className="primary">
+                00
+              </p>
+              <div className="circle-right"></div>
+            </div>
+            <p className="sub-heading">MINUTES</p>
+          </div>
 
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
+          <div className="countdown-info">
+            <div className="timer-box">
+              <div id="flip-sheet-sec" className="sheet"></div>
+              <div className="circle-left"></div>
+              <p id="seconds" className="primary">
+                00
+              </p>
+              <div className="circle-right"></div>
+            </div>
+            <p className="sub-heading">SECONDS</p>
+          </div>
+        </section>
       </div>
     </main>
-  )
+  );
 }

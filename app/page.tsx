@@ -35,7 +35,7 @@ export default function Home() {
         <div className="mt-10 flex justify-center text-[28px] w-max-[1400px] m-auto text-center">
           We are currently revitalizing Kait with exciting new features, awesome
           additions, and plenty of bells and whistles. Get ready for a whole new
-          experience &hyphen; big things coming soon!
+          experience - big things coming soon!
         </div>
 
         {/* <section className="countdown-timer mt-10">
